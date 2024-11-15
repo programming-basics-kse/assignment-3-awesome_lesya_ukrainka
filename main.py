@@ -12,14 +12,18 @@ parser.add_argument('command', help=' \
                     -total - used for getting total result for each country, \
                     -overall - used for getting highest medals and year for following countries, \
                     -interactive - used for getting statistic for current country',
-                    choices=('-medals', '-total', '-overall', '-interactive'))
+                    choices=['medals', 'total', 'overall', 'interactive'])
 parser.add_argument('team', help='name of country or code of team')
 parser.add_argument('year', help='year of games')
 parser.add_argument('--output', help='name of output file')
 
 
 def main():
+    # val = input('input')
+    # print(val)
     args = parser.parse_args()
+
+    print(args)
 
     print('Hello World!')
 
