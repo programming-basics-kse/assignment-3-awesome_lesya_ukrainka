@@ -1,6 +1,5 @@
 import argparse
 
-
 parser = argparse.ArgumentParser(
         prog="Awesome Lesya Ukrainka",
         description="Analyzing olympic athlets dataset"
@@ -54,6 +53,38 @@ def get_medals_count(filename: str, team: str, year: str) -> str:
     return res
 
 
+def get_medals_total(filename: str, year: str):
+    count_medals = {}
+    with open(filename) as file:
+        for line in file:
+            one_line = line.split('\t')
+            line_year = one_line[-6]
+            line_country = one_line[6]
+            medal = one_line[-1]
+
+            if year == line_year:
+                if line_country not in count_medals:
+                    gold = 0
+                    silver = 0
+                    bronze = 0
+                    count_medals[line_country] = {'Gold': gold, 'Silver': silver, 'Bronze': bronze}
+
+                    if 'Gold' in medal:
+                        count_medals[line_country]['Gold'] += 1
+                    elif 'Silver' in medal:
+                        count_medals[line_country]['Silver'] += 1
+                    elif 'Bronze' in medal:
+                        count_medals[line_country]['Bronze'] += 1
+
+
+
+
+    for countrie in count_medals:
+        print(f"{countrie} - {count_medals[countrie]['Gold']} - {count_medals[countrie]['Silver']} - {count_medals[countrie]['Bronze']}")
+
+
+
+
 def main():
     args = parser.parse_args()
 
@@ -64,6 +95,8 @@ def main():
         with open(args.output[0], "w") as file:
             file.write(res)
 
+    if args.total:
+        get_medals_total('olympic_athlets.tsv', args.total)
 
 if __name__ == '__main__':
     main()
