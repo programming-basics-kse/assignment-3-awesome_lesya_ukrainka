@@ -29,8 +29,9 @@ def get_medals_count(filename: str, team: str, year: str) -> str:
             line_country = one_line[6]
             medal = one_line[-1]
             name = one_line[1]
+            team_code = one_line[7]
             if i >= 0:
-                if year == line_year and team == line_country:
+                if year == line_year and (team == line_country or team == team_code):
                     print(f'{name} - {line_year} - {medal}')
                     if 'Gold' in medal:
                         gold += 1
@@ -128,6 +129,18 @@ def get_medals_overall(filename: str, countries: list[str]) -> str:
     print(res)
     return res
 
+def  get_statistics(filename: str, country: str) -> str:
+    with open(filename) as file:
+        for line in file:
+            one_line = line.split('\t')
+            team_code = one_line[7]
+            line_country = one_line[6]
+            if country != (team_code or line_country):
+                continue
+
+
+
+
 
 def main():
     args = parser.parse_args()
@@ -141,10 +154,19 @@ def main():
     if args.overall:
         res = get_medals_overall(args.filename, args.overall)
 
+    if args.interactive:
+        res = ''
+        while True:
+            country = input('Input country or exit:')
+            if country == 'exit':
+                break
+            else:
+                one_country = get_statistics(args.filename, country)
+                res += one_country
+
     if args.output:
         with open(args.output[0], "w") as file:
             file.write(res)
-
 
 if __name__ == '__main__':
     main()
