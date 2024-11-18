@@ -75,12 +75,19 @@ def get_medals_total(filename: str, year: str):
                         count_medals[line_country]['Silver'] += 1
                     elif 'Bronze' in medal:
                         count_medals[line_country]['Bronze'] += 1
+                else:
+                    if 'Gold' in medal:
+                        count_medals[line_country]['Gold'] += 1
+                    elif 'Silver' in medal:
+                        count_medals[line_country]['Silver'] += 1
+                    elif 'Bronze' in medal:
+                        count_medals[line_country]['Bronze'] += 1
 
 
 
 
     for countrie in count_medals:
-        print(f"{countrie} - {count_medals[countrie]['Gold']} - {count_medals[countrie]['Silver']} - {count_medals[countrie]['Bronze']}")
+        print(f"{countrie}: {count_medals[countrie]['Gold']} - {count_medals[countrie]['Silver']} - {count_medals[countrie]['Bronze']}")
 
 
 
