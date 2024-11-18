@@ -163,6 +163,10 @@ def main():
             else:
                 one_country = get_statistics(args.filename, country)
                 res += one_country
+                if res == '':
+                    country = input('No country that matches this, try again:')
+                    one_country = get_statistics(args.filename, country)
+                    res += one_country
 
     if args.output:
         with open(args.output[0], "w") as file:
