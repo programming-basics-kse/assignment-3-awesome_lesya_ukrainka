@@ -141,6 +141,7 @@ def get_medals_overall(filename: str, countries: list[str]) -> str:
 
 def  get_interactive_statistics(filename: str, country: str) -> str:
     try:
+        print(country)
         res = ''
         first_participation = {}
         total_medals_by_year = {}
@@ -222,7 +223,7 @@ def main():
     if args.medals:
         res = get_medals_count(args.filename, args.medals[0], args.medals[1])
     elif args.total:
-       res = get_medals_total(args.filename, args.total)
+       res = get_medals_total(args.filename, args.total[0])
     elif args.overall:
         res = get_medals_overall(args.filename, args.overall)
     elif args.interactive:
